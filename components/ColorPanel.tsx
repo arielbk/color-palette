@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { color } from "@chakra-ui/styled-system";
+import { useState } from "react";
 import { Palette } from "../pages";
 
 interface ColorPanelProps {
@@ -10,18 +11,32 @@ const ColorBox: React.FC<{ color: string; number: string }> = ({
   color,
   number,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const onCopy = async () => {
+    if (isCopied) return;
+    const copied = await navigator.clipboard.writeText(color);
+    setIsCopied(true);
+    setInterval(() => setIsCopied(false), 3000);
+  };
+
   return (
     <Flex
       width="100%"
-      height="60px"
+      height="50px"
       backgroundColor={color}
       color="#fff"
       justifyContent="center"
       alignItems="center"
       fontWeight="600"
-      fontSize="2rem"
+      fontSize="1.4rem"
+      cursor="pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onCopy}
     >
-      {number}
+      {isCopied ? "Copied!" : isHovered ? color : number}
     </Flex>
   );
 };
