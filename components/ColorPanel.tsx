@@ -1,10 +1,12 @@
 import { Box, Flex } from "@chakra-ui/layout";
+import { color } from "@chakra-ui/styled-system";
+import { Palette } from "../pages";
 
 interface ColorPanelProps {
-  color: string;
+  colorPalette: Palette;
 }
 
-const ColorBox: React.FC<ColorPanelProps & { number: number }> = ({
+const ColorBox: React.FC<{ color: string; number: string }> = ({
   color,
   number,
 }) => {
@@ -24,7 +26,7 @@ const ColorBox: React.FC<ColorPanelProps & { number: number }> = ({
   );
 };
 
-const adjustLuminosity = (color: string, amount: number) => {
+export const adjustLuminosity = (color: string, amount: number) => {
   // receives a hex color in the form #rrggbb
   const split = {
     r: parseInt(color.slice(1, 3), 16),
@@ -50,18 +52,13 @@ const adjustLuminosity = (color: string, amount: number) => {
     .padStart(2, "0")}${adjusted.b.toString(16).padStart(2, "0")}`;
 };
 
-export const ColorPanel: React.FC<ColorPanelProps> = ({ color }) => {
+export const ColorPanel: React.FC<ColorPanelProps> = ({ colorPalette }) => {
+  console.log(Object.entries(colorPalette));
   return (
-    <Box width="100%">
-      <ColorBox color={adjustLuminosity(color, 100)} number={100} />
-      <ColorBox color={adjustLuminosity(color, 80)} number={200} />
-      <ColorBox color={adjustLuminosity(color, 40)} number={300} />
-      <ColorBox color={adjustLuminosity(color, 20)} number={400} />
-      <ColorBox color={color} number={500} />
-      <ColorBox color={adjustLuminosity(color, -20)} number={600} />
-      <ColorBox color={adjustLuminosity(color, -40)} number={700} />
-      <ColorBox color={adjustLuminosity(color, -60)} number={800} />
-      <ColorBox color={adjustLuminosity(color, -80)} number={900} />
+    <Box width="100%" borderRadius={8} overflow="hidden" my={8}>
+      {Object.entries(colorPalette).map(([number, color]) => (
+        <ColorBox number={number} color={color} />
+      ))}
     </Box>
   );
 };
