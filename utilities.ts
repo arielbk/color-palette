@@ -39,15 +39,15 @@ export type Palette = {
 
 export const createPalette = (color: string): Palette => {
   return {
-    50: adjustLuminosity(color, 180),
-    100: adjustLuminosity(color, 140),
-    200: adjustLuminosity(color, 120),
+    50: adjustLuminosity(color, 220),
+    100: adjustLuminosity(color, 180),
+    200: adjustLuminosity(color, 140),
     300: adjustLuminosity(color, 80),
     400: adjustLuminosity(color, 40),
     500: color,
-    600: adjustLuminosity(color, -20),
-    700: adjustLuminosity(color, -40),
-    800: adjustLuminosity(color, -60),
-    900: adjustLuminosity(color, -80),
+    600: adjustLuminosity(color, -30),
+    700: adjustLuminosity(color, -60),
+    800: adjustLuminosity(color, -100),
+    900: adjustLuminosity(color, -140),
   };
 };

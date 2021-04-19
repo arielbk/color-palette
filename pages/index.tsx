@@ -5,7 +5,7 @@ import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
 
 export default function Home() {
-  const { palettes } = useContext(PalettesContext);
+  const { palettes, handleChangePalette } = useContext(PalettesContext);
   return (
     <div>
       <Head>
@@ -17,8 +17,12 @@ export default function Home() {
           <Heading>Color Palette</Heading>
         </Flex>
         <Box width="100%" textAlign="right">
-          {palettes.map((palette) => (
-            <ColorPanel colorPalette={palette} />
+          {palettes.map((palette, i) => (
+            <ColorPanel
+              colorPalette={palette.shades}
+              name={palette.name}
+              onChange={(color: string) => handleChangePalette(color, i)}
+            />
           ))}
         </Box>
       </Box>

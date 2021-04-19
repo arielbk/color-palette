@@ -25,31 +25,40 @@ export type Palette = {
 
 interface ColorPanelProps {
   colorPalette: Palette;
+  name: string;
+  onChange: (color: string) => void;
 }
 
-export const ColorPanel: React.FC<ColorPanelProps> = ({ colorPalette }) => {
+export const ColorPanel: React.FC<ColorPanelProps> = ({
+  colorPalette,
+  name,
+  onChange,
+}) => {
   return (
-    <Box width="120px" borderRadius={8} overflow="hidden" my={8}>
-      <InputGroup width="250px">
-        <InputLeftElement color="gray.500" fontSize="1.2rem" pt={2}>
-          #
-        </InputLeftElement>
-        <Input
-          value={colorPalette[500].slice(1, 7)}
-          // onChange={(e) => setColor("#" + e.target.value)}
-          size="lg"
-        />
-        <InputRightElement mr={4}>
-          <input
-            type="color"
-            value={colorPalette[500]}
-            // onChange={(e) => setColor(e.target.value)}
+    <Box width="120px" my={8}>
+      {name}
+      <Box borderRadius={8} width="100%">
+        <InputGroup width="250px">
+          <InputLeftElement color="gray.500" fontSize="1.2rem" pt={2}>
+            #
+          </InputLeftElement>
+          <Input
+            value={colorPalette[500].slice(1, 7)}
+            onChange={(e) => onChange("#" + e.target.value)}
+            size="lg"
           />
-        </InputRightElement>
-      </InputGroup>
-      {Object.entries(colorPalette).map(([number, color]) => (
-        <ColorBox number={number} color={color} />
-      ))}
+          <InputRightElement mr={4}>
+            <input
+              type="color"
+              value={colorPalette[500]}
+              onChange={(e) => onChange(e.target.value)}
+            />
+          </InputRightElement>
+        </InputGroup>
+        {Object.entries(colorPalette).map(([number, color]) => (
+          <ColorBox number={number} color={color} />
+        ))}
+      </Box>
       <Button
         ml="auto"
         background={colorPalette[500]}

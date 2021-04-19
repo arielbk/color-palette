@@ -20,7 +20,7 @@ export const ColorBox: React.FC<{ color: string; number: string }> = ({
       justifyContent="center"
       alignItems="center"
       fontWeight="600"
-      fontSize="1.4rem"
+      fontSize="1rem"
       cursor="pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
