@@ -6,7 +6,9 @@ import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
 
 export default function Home() {
-  const { palettes, handleChangePalette } = useContext(PalettesContext);
+  const { palettes, handleChangePalette, handleRenamePalette } = useContext(
+    PalettesContext
+  );
   return (
     <div>
       <Head>
@@ -22,7 +24,8 @@ export default function Home() {
             <ColorPanel
               colorPalette={palette.shades}
               name={palette.name}
-              onChange={(color: string) => handleChangePalette(color, i)}
+              onColorChange={(color: string) => handleChangePalette(color, i)}
+              onRename={(name: string) => handleRenamePalette(name, i)}
             />
           ))}
           <AddPanel />

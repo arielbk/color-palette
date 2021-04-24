@@ -26,17 +26,19 @@ export type Palette = {
 interface ColorPanelProps {
   colorPalette: Palette;
   name: string;
-  onChange: (color: string) => void;
+  onColorChange: (color: string) => void;
+  onRename: (name: string) => void;
 }
 
 export const ColorPanel: React.FC<ColorPanelProps> = ({
   colorPalette,
   name,
-  onChange,
+  onColorChange,
+  onRename,
 }) => {
   return (
-    <Box width="120px" my={8}>
-      {name}
+    <Box width="120px" my={8} mr={2}>
+      <Input my={2} value={name} onChange={(e) => onRename(e.target.value)} />
       <Box borderRadius={8} width="100%">
         <InputGroup>
           <InputLeftElement color="gray.500" fontSize="1.2rem" pt={2}>
@@ -44,14 +46,14 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
           </InputLeftElement>
           <Input
             value={colorPalette[500].slice(1, 7)}
-            onChange={(e) => onChange("#" + e.target.value)}
+            onChange={(e) => onColorChange("#" + e.target.value)}
             size="lg"
           />
           <InputRightElement mr={4}>
             <input
               type="color"
               value={colorPalette[500]}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => onColorChange(e.target.value)}
             />
           </InputRightElement>
         </InputGroup>
@@ -60,6 +62,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
         ))}
       </Box>
       <Button
+        my={2}
         width="100%"
         ml="auto"
         onClick={() =>
