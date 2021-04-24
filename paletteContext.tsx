@@ -8,6 +8,9 @@ export const PalettesContext = createContext({
   handleChangePalette: (color: string, index: number) => {
     //
   },
+  handleAddPalette: () => {
+    //
+  },
 });
 
 export const PaletteProvider: React.FC = ({ children }) => {
@@ -24,8 +27,17 @@ export const PaletteProvider: React.FC = ({ children }) => {
     });
   };
 
+  const handleAddPalette = () => {
+    setPalettes((prev) => [
+      ...prev,
+      { name: "New palette", shades: createPalette("#ff0000") },
+    ]);
+  };
+
   return (
-    <PalettesContext.Provider value={{ palettes, handleChangePalette }}>
+    <PalettesContext.Provider
+      value={{ palettes, handleChangePalette, handleAddPalette }}
+    >
       {children}
     </PalettesContext.Provider>
   );

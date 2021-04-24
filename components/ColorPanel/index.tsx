@@ -38,7 +38,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
     <Box width="120px" my={8}>
       {name}
       <Box borderRadius={8} width="100%">
-        <InputGroup width="250px">
+        <InputGroup>
           <InputLeftElement color="gray.500" fontSize="1.2rem" pt={2}>
             #
           </InputLeftElement>
@@ -60,9 +60,8 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
         ))}
       </Box>
       <Button
+        width="100%"
         ml="auto"
-        background={colorPalette[500]}
-        color="white"
         onClick={() =>
           download(
             JSON.stringify(colorPalette, null, 2),

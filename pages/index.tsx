@@ -1,6 +1,7 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import Head from "next/head";
 import { useContext } from "react";
+import { AddPanel } from "../components/AddPanel";
 import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
 
@@ -16,7 +17,7 @@ export default function Home() {
         <Flex justifyContent="space-between">
           <Heading>Color Palette</Heading>
         </Flex>
-        <Box width="100%" textAlign="right">
+        <Flex width="100%" textAlign="right">
           {palettes.map((palette, i) => (
             <ColorPanel
               colorPalette={palette.shades}
@@ -24,7 +25,8 @@ export default function Home() {
               onChange={(color: string) => handleChangePalette(color, i)}
             />
           ))}
-        </Box>
+          <AddPanel />
+        </Flex>
       </Box>
     </div>
   );
