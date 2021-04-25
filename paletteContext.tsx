@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import download from "downloadjs";
 import { createPalette } from "./utilities";
 
 const defaultPalette = { name: "primary", shades: createPalette("#0000ff") };
@@ -12,6 +13,9 @@ export const PalettesContext = createContext({
     //
   },
   handleRenamePalette: (name: string, index: number) => {
+    //
+  },
+  exportToJson: () => {
     //
   },
 });
@@ -48,6 +52,12 @@ export const PaletteProvider: React.FC = ({ children }) => {
     });
   };
 
+  const exportToJson = () => {
+    const json = {};
+    palettes.forEach((p) => (json[p.name] = p.shades));
+    download(JSON.stringify(json, null, 2), "palette.json", "application/json");
+  };
+
   return (
     <PalettesContext.Provider
       value={{
@@ -55,6 +65,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
         handleChangePalette,
         handleAddPalette,
         handleRenamePalette,
+        exportToJson,
       }}
     >
       {children}
