@@ -11,6 +11,7 @@ export default function Home() {
     palettes,
     handleChangePalette,
     handleRenamePalette,
+    handleRemovePalette,
     exportToJson,
   } = useContext(PalettesContext);
   return (
@@ -25,7 +26,13 @@ export default function Home() {
       <Box maxWidth="800px" mx="auto" my={8}>
         <Flex justifyContent="space-between">
           <Heading>Color Palette</Heading>
-          <Button my={2} ml="auto" onClick={exportToJson} colorScheme="twitter">
+          <Button
+            my={2}
+            ml="auto"
+            onClick={exportToJson}
+            colorScheme="twitter"
+            variant="outline"
+          >
             Export JSON
           </Button>
         </Flex>
@@ -36,6 +43,7 @@ export default function Home() {
               name={palette.name}
               onColorChange={(color: string) => handleChangePalette(color, i)}
               onRename={(name: string) => handleRenamePalette(name, i)}
+              onDelete={() => handleRemovePalette(i)}
             />
           ))}
           <AddPanel />

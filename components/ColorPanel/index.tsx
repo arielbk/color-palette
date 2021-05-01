@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Input,
   InputGroup,
   InputLeftElement,
@@ -7,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { ColorBox } from "./ColorBox";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export type Palette = {
   50: string;
@@ -26,6 +28,7 @@ interface ColorPanelProps {
   name: string;
   onColorChange: (color: string) => void;
   onRename: (name: string) => void;
+  onDelete: () => void;
 }
 
 export const ColorPanel: React.FC<ColorPanelProps> = ({
@@ -33,6 +36,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   name,
   onColorChange,
   onRename,
+  onDelete,
 }) => {
   return (
     <Box width="120px" my={8} mr={2}>
@@ -59,6 +63,16 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
       {Object.entries(colorPalette).map(([number, color]) => (
         <ColorBox number={number} color={color} />
       ))}
+      <Button
+        colorScheme="red"
+        leftIcon={<AiOutlineDelete />}
+        width="100%"
+        mt={2}
+        variant="outline"
+        onClick={onDelete}
+      >
+        Remove
+      </Button>
     </Box>
   );
 };

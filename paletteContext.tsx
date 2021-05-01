@@ -12,6 +12,9 @@ export const PalettesContext = createContext({
   handleAddPalette: () => {
     //
   },
+  handleRemovePalette: (index: number) => {
+    //
+  },
   handleRenamePalette: (name: string, index: number) => {
     //
   },
@@ -37,8 +40,12 @@ export const PaletteProvider: React.FC = ({ children }) => {
   const handleAddPalette = () => {
     setPalettes((prev) => [
       ...prev,
-      { name: "New palette", shades: createPalette("#ff0000") },
+      { name: "New palette", shades: createPalette("#cccccc") },
     ]);
+  };
+
+  const handleRemovePalette = (index: number) => {
+    setPalettes((prev) => prev.filter((p, i) => i !== index));
   };
 
   const handleRenamePalette = (name: string, index: number) => {
@@ -64,6 +71,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
         palettes,
         handleChangePalette,
         handleAddPalette,
+        handleRemovePalette,
         handleRenamePalette,
         exportToJson,
       }}
