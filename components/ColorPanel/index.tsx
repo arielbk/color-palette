@@ -1,14 +1,14 @@
 import {
   Box,
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
+  Center,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  IconButton,
 } from "@chakra-ui/react";
 import React from "react";
+import { AiFillStar, AiOutlineDelete } from "react-icons/ai";
 import { ColorBox } from "./ColorBox";
-import { AiOutlineDelete } from "react-icons/ai";
 
 export type Palette = {
   50: string;
@@ -39,40 +39,45 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onDelete,
 }) => {
   return (
-    <Box width="120px" my={8} mr={2}>
-      <InputGroup>
-        <Input my={2} value={name} onChange={(e) => onRename(e.target.value)} />
-        <InputRightElement mr={4}>
-          <input
-            type="color"
-            value={colorPalette[500]}
-            onChange={(e) => onColorChange(e.target.value)}
-          />
-        </InputRightElement>
-      </InputGroup>
-      <InputGroup>
-        <InputLeftElement color="gray.500" fontSize="1.2rem" pt={2}>
-          #
-        </InputLeftElement>
-        <Input
-          value={colorPalette[500].slice(1, 7)}
-          onChange={(e) => onColorChange("#" + e.target.value)}
-          size="lg"
+    <Box width="140px" my={8} mr={2} textAlign="center">
+      <Editable
+        defaultValue={name}
+        textAlign="center"
+        startWithEditView
+        fontWeight="600"
+        mb={2}
+      >
+        <EditablePreview />
+        <EditableInput
+          value={name}
+          onChange={(e) => onRename(e.target.value)}
         />
-      </InputGroup>
-      {Object.entries(colorPalette).map(([number, color]) => (
-        <ColorBox number={number} color={color} />
-      ))}
-      <Button
+      </Editable>
+      <Center mb={2}>
+        <Box fontSize="1.2rem" mr={4}>
+          <AiFillStar />
+        </Box>
+        <input
+          type="color"
+          value={colorPalette[500]}
+          onChange={(e) => onColorChange(e.target.value)}
+        />
+      </Center>
+      <Box borderRadius={8} overflow="hidden">
+        {Object.entries(colorPalette).map(([number, color]) => (
+          <ColorBox number={number} color={color} />
+        ))}
+      </Box>
+      <IconButton
         colorScheme="red"
-        leftIcon={<AiOutlineDelete />}
-        width="100%"
+        icon={<AiOutlineDelete />}
         mt={2}
         variant="outline"
         onClick={onDelete}
-      >
-        Remove
-      </Button>
+        aria-label="Remove colour"
+        borderRadius="50%"
+        size="lg"
+      />
     </Box>
   );
 };

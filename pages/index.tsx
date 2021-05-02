@@ -13,6 +13,7 @@ export default function Home() {
     handleRenamePalette,
     handleRemovePalette,
     exportToJson,
+    randomPalette,
   } = useContext(PalettesContext);
   return (
     <div>
@@ -26,15 +27,27 @@ export default function Home() {
       <Box maxWidth="800px" mx="auto" my={8}>
         <Flex justifyContent="space-between">
           <Heading>Color Palette</Heading>
-          <Button
-            my={2}
-            ml="auto"
-            onClick={exportToJson}
-            colorScheme="twitter"
-            variant="outline"
-          >
-            Export JSON
-          </Button>
+          <Box>
+            <Button
+              my={2}
+              ml="auto"
+              onClick={randomPalette}
+              colorScheme="twitter"
+              variant="solid"
+              mr={4}
+            >
+              Random Palette
+            </Button>
+            <Button
+              my={2}
+              ml="auto"
+              onClick={exportToJson}
+              colorScheme="twitter"
+              variant="outline"
+            >
+              Export JSON
+            </Button>
+          </Box>
         </Flex>
         <Flex width="100%" textAlign="right">
           {palettes.map((palette, i) => (

@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
 import download from "downloadjs";
 import { createPalette } from "./utilities";
+import axios from "axios";
 
-const defaultPalette = { name: "primary", shades: createPalette("#0000ff") };
+const defaultPalette = { name: "Primary", shades: createPalette("#0000ff") };
 
 export const PalettesContext = createContext({
   palettes: [defaultPalette],
@@ -21,10 +22,25 @@ export const PalettesContext = createContext({
   exportToJson: () => {
     //
   },
+  randomPalette: async () => {
+    //
+  },
 });
 
 export const PaletteProvider: React.FC = ({ children }) => {
   const [palettes, setPalettes] = useState([defaultPalette]);
+
+  const randomPalette = async () => {
+    const res = await axios.get("/api/randomPalette");
+    setPalettes(
+      res.data.colors.map((color) => {
+        return {
+          name: "Color",
+          shades: createPalette(`#${color}`),
+        };
+      })
+    );
+  };
 
   const handleChangePalette = (color: string, index: number) => {
     setPalettes((prev) => {
@@ -74,6 +90,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
         handleRemovePalette,
         handleRenamePalette,
         exportToJson,
+        randomPalette,
       }}
     >
       {children}

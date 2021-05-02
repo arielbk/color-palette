@@ -1,8 +1,7 @@
 import { useClipboard } from "@chakra-ui/hooks";
 import { Box, Flex } from "@chakra-ui/layout";
-import { color } from "@chakra-ui/styled-system";
-import { useTheme } from "@emotion/react";
 import { useState } from "react";
+import { AiFillStar } from "react-icons/ai";
 
 export const ColorBox: React.FC<{ color: string; number: string }> = ({
   color,
@@ -27,7 +26,13 @@ export const ColorBox: React.FC<{ color: string; number: string }> = ({
         setIsHovered(false);
       }}
       onClick={onCopy}
+      position="relative"
     >
+      {!isHovered && number === "500" ? (
+        <Box position="absolute" left={3} fontSize="1.2rem">
+          <AiFillStar />
+        </Box>
+      ) : null}
       {hasCopied ? "Copied!" : isHovered ? color : number}
     </Flex>
   );
