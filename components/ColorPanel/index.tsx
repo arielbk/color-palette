@@ -53,8 +53,8 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
           onChange={(e) => onRename(e.target.value)}
         />
       </Editable>
-      <Center mb={2}>
-        <Box fontSize="1.2rem" mr={4}>
+      <Center my={4} mb={6}>
+        <Box fontSize="1.2rem" mr={6}>
           <AiFillStar />
         </Box>
         <input
@@ -64,20 +64,26 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
         />
       </Center>
 
-      <Box borderRadius={8} overflow="hidden">
+      <Box borderRadius={8} overflow="hidden" transform="translate(-4px, -3px)">
         {Object.entries(colorPalette).map(([number, color]) => (
           <ColorBox number={number} color={color} />
         ))}
       </Box>
+
       <IconButton
         colorScheme="red"
         icon={<AiOutlineDelete />}
-        mt={2}
+        mt={4}
         variant="outline"
         onClick={onDelete}
         aria-label="Remove colour"
         borderRadius="50%"
         size="lg"
+        boxShadow="0 16px 32px rgba(0,0,0,0.1)"
+        _hover={{
+          background: "red.600",
+          color: "#fff",
+        }}
       />
     </Box>
   );

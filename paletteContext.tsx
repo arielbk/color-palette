@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import download from "downloadjs";
 import axios from "axios";
 import { createPalette } from "./utilities";
@@ -32,19 +32,18 @@ export const PaletteProvider: React.FC = ({ children }) => {
   const [palettes, setPalettes] = useState([defaultPalette]);
   const [isLoadingRandom, setIsLoadingRandom] = useState(false);
 
-  const randomPalette = async () => {
+  const randomPalette = useCallback(async () => {
     setIsLoadingRandom(true);
     const res = await axios.get("/api/randomPalette");
-    setPalettes(
-      res.data.colors.map((color) => {
-        return {
-          name: "Color",
-          shades: createPalette(`#${color}`),
-        };
-      })
-    );
+    const newPalettes = res.data.colors.map((color, i) => {
+      return {
+        name: i === 0 ? "Primary" : `Color ${i}`,
+        shades: createPalette(`#${color}`),
+      };
+    });
+    setPalettes(newPalettes);
     setIsLoadingRandom(false);
-  };
+  }, []);
 
   const handleChangePalette = (color: string, index: number) => {
     setPalettes((prev) => {

@@ -17,7 +17,12 @@ export default function Home() {
     isLoadingRandom,
   } = useContext(PalettesContext);
   return (
-    <Box background="#eee" my={0}>
+    <Box
+      background={`linear-gradient(${
+        Object.values(palettes)[0].shades[100]
+      }, #fff)`}
+      my={0}
+    >
       <Head>
         <title>Color Palette</title>
         <link
@@ -27,13 +32,15 @@ export default function Home() {
       </Head>
       <Box maxWidth="1000px" mx="auto" py={8}>
         <Flex justifyContent="space-between">
-          <Heading>Color Palette</Heading>
+          <Heading color={Object.values(palettes)[0].shades[800]}>
+            Color Palette
+          </Heading>
           <Box>
             <Button
               my={2}
               ml="auto"
               onClick={randomPalette}
-              colorScheme="twitter"
+              colorScheme="blackAlpha"
               variant="solid"
               mr={4}
             >
@@ -43,7 +50,7 @@ export default function Home() {
               my={2}
               ml="auto"
               onClick={exportToJson}
-              colorScheme="twitter"
+              colorScheme="blackAlpha"
               variant="outline"
             >
               Export JSON
@@ -53,14 +60,14 @@ export default function Home() {
         <Flex
           width="100%"
           textAlign="right"
-          background="#fff"
-          px={8}
-          py={4}
+          background={"#fff"}
+          px={16}
+          py={0}
           my={4}
           borderRadius={8}
         >
           {isLoadingRandom ? (
-            <Spinner mx="auto" my={32} />
+            <Spinner mx="auto" my={64} />
           ) : (
             <>
               {palettes.map((palette, i) => (
