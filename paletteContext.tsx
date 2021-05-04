@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import download from "downloadjs";
-import { createPalette } from "./utilities";
 import axios from "axios";
+import { createPalette } from "./utilities";
 
 const defaultPalette = { name: "Primary", shades: createPalette("#0000ff") };
 
@@ -25,12 +25,15 @@ export const PalettesContext = createContext({
   randomPalette: async () => {
     //
   },
+  isLoadingRandom: false,
 });
 
 export const PaletteProvider: React.FC = ({ children }) => {
   const [palettes, setPalettes] = useState([defaultPalette]);
+  const [isLoadingRandom, setIsLoadingRandom] = useState(false);
 
   const randomPalette = async () => {
+    setIsLoadingRandom(true);
     const res = await axios.get("/api/randomPalette");
     setPalettes(
       res.data.colors.map((color) => {
@@ -40,6 +43,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
         };
       })
     );
+    setIsLoadingRandom(false);
   };
 
   const handleChangePalette = (color: string, index: number) => {
@@ -81,6 +85,10 @@ export const PaletteProvider: React.FC = ({ children }) => {
     download(JSON.stringify(json, null, 2), "palette.json", "application/json");
   };
 
+  useEffect(() => {
+    randomPalette();
+  }, []);
+
   return (
     <PalettesContext.Provider
       value={{
@@ -91,6 +99,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
         handleRenamePalette,
         exportToJson,
         randomPalette,
+        isLoadingRandom,
       }}
     >
       {children}

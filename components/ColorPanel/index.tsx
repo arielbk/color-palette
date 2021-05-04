@@ -39,7 +39,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onDelete,
 }) => {
   return (
-    <Box width="140px" my={8} mr={2} textAlign="center">
+    <Box width="100px" my={8} mr={8} textAlign="center">
       <Editable
         defaultValue={name}
         textAlign="center"
@@ -63,6 +63,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
           onChange={(e) => onColorChange(e.target.value)}
         />
       </Center>
+
       <Box borderRadius={8} overflow="hidden">
         {Object.entries(colorPalette).map(([number, color]) => (
           <ColorBox number={number} color={color} />

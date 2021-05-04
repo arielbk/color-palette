@@ -5,7 +5,7 @@ import { PalettesContext } from "../paletteContext";
 export const AddPanel: React.FC = () => {
   const { handleAddPalette } = useContext(PalettesContext);
   return (
-    <Box my={8} mx={8}>
+    <Box my={8} py={14}>
       <Flex
         width="120px"
         borderWidth={2}
