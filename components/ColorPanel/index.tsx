@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { AiFillStar, AiOutlineDelete } from "react-icons/ai";
+import ColorPicker from "../ColorPicker";
 import { ColorBox } from "./ColorBox";
 
 export type Palette = {
@@ -57,10 +58,9 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
         <Box fontSize="1.2rem" mr={6}>
           <AiFillStar />
         </Box>
-        <input
-          type="color"
-          value={colorPalette[500]}
-          onChange={(e) => onColorChange(e.target.value)}
+        <ColorPicker
+          color={colorPalette[500]}
+          onChange={(hex: string) => onColorChange(hex)}
         />
       </Center>
 
