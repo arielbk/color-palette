@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { AddPanel } from "../components/AddPanel";
 import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export default function Home() {
   const {
@@ -58,36 +58,45 @@ export default function Home() {
             </Button>
           </Box>
         </Flex>
-        <Flex
-          width="100%"
-          textAlign="right"
-          background={"#fff"}
-          px={16}
-          py={0}
-          my={4}
-          borderRadius={8}
-        >
-          <DragDropContext>
-            {isLoadingRandom ? (
-              <Spinner mx="auto" my={64} />
-            ) : (
-              <>
-                {palettes.map((palette, i) => (
-                  <ColorPanel
-                    colorPalette={palette.shades}
-                    name={palette.name}
-                    onColorChange={(color: string) =>
-                      handleChangePalette(color, i)
-                    }
-                    onRename={(name: string) => handleRenamePalette(name, i)}
-                    onDelete={() => handleRemovePalette(i)}
-                  />
-                ))}
-                <AddPanel />
-              </>
+        <DragDropContext onDragEnd={(result) => console.log(result)}>
+          <Droppable droppableId="palettes">
+            {(provided) => (
+              <Flex
+                width="100%"
+                textAlign="right"
+                background={"#fff"}
+                px={16}
+                py={0}
+                my={4}
+                borderRadius={8}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {isLoadingRandom ? (
+                  <Spinner mx="auto" my={64} />
+                ) : (
+                  <>
+                    {palettes.map((palette, i) => (
+                      <ColorPanel
+                        colorPalette={palette.shades}
+                        name={palette.name}
+                        onColorChange={(color: string) =>
+                          handleChangePalette(color, i)
+                        }
+                        onRename={(name: string) =>
+                          handleRenamePalette(name, i)
+                        }
+                        onDelete={() => handleRemovePalette(i)}
+                      />
+                    ))}
+                    <AddPanel />
+                  </>
+                )}
+                {provided.placeholder}
+              </Flex>
             )}
-          </DragDropContext>
-        </Flex>
+          </Droppable>
+        </DragDropContext>
       </Box>
     </Box>
   );
