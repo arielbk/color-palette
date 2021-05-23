@@ -1,11 +1,12 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import { useContext } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import { PalettesContext } from "../paletteContext";
 
-export const AddPanel: React.FC = () => {
+export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
   const { handleAddPalette, palettes } = useContext(PalettesContext);
   return (
-    <Box my={8} py={16} pt={24} height="650px">
+    <Box display="inline-block">
       <Flex
         width="120px"
         borderWidth={2}
