@@ -11,6 +11,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { AiFillStar, AiOutlineDelete } from "react-icons/ai";
 import ColorPicker from "../ColorPicker";
 import { ColorBox } from "./ColorBox";
+import { GrDrag } from "react-icons/gr";
 
 export type Palette = {
   50: string;
@@ -55,7 +56,6 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
           mr={8}
           textAlign="center"
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
         >
           <Editable
             defaultValue={name}
@@ -105,6 +105,17 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
               color: "#fff",
             }}
           />
+
+          <Box
+            transform="rotate(90deg)"
+            fontSize="1.5rem"
+            mt={16}
+            color="blue"
+            opacity="0.2"
+            {...provided.dragHandleProps}
+          >
+            <GrDrag />
+          </Box>
         </Box>
       )}
     </Draggable>
