@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import { AddPanel } from "../components/AddPanel";
 import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
+import { DragDropContext } from "react-beautiful-dnd";
 
 export default function Home() {
   const {
@@ -66,24 +67,26 @@ export default function Home() {
           my={4}
           borderRadius={8}
         >
-          {isLoadingRandom ? (
-            <Spinner mx="auto" my={64} />
-          ) : (
-            <>
-              {palettes.map((palette, i) => (
-                <ColorPanel
-                  colorPalette={palette.shades}
-                  name={palette.name}
-                  onColorChange={(color: string) =>
-                    handleChangePalette(color, i)
-                  }
-                  onRename={(name: string) => handleRenamePalette(name, i)}
-                  onDelete={() => handleRemovePalette(i)}
-                />
-              ))}
-              <AddPanel />
-            </>
-          )}
+          <DragDropContext>
+            {isLoadingRandom ? (
+              <Spinner mx="auto" my={64} />
+            ) : (
+              <>
+                {palettes.map((palette, i) => (
+                  <ColorPanel
+                    colorPalette={palette.shades}
+                    name={palette.name}
+                    onColorChange={(color: string) =>
+                      handleChangePalette(color, i)
+                    }
+                    onRename={(name: string) => handleRenamePalette(name, i)}
+                    onDelete={() => handleRemovePalette(i)}
+                  />
+                ))}
+                <AddPanel />
+              </>
+            )}
+          </DragDropContext>
         </Flex>
       </Box>
     </Box>

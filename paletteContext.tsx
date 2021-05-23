@@ -2,8 +2,13 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import download from "downloadjs";
 import axios from "axios";
 import { createPalette } from "./utilities";
+import { uuid } from "uuidv4";
 
-const defaultPalette = { name: "Primary", shades: createPalette("#0000ff") };
+const defaultPalette = {
+  id: uuid(),
+  name: "Primary",
+  shades: createPalette("#0000ff"),
+};
 
 export const PalettesContext = createContext({
   palettes: [defaultPalette],
@@ -49,7 +54,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
     setPalettes((prev) => {
       const newPalette = [...prev];
       newPalette[index] = {
-        name: newPalette[index].name,
+        ...newPalette[index],
         shades: createPalette(color),
       };
       return newPalette;
@@ -59,7 +64,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
   const handleAddPalette = () => {
     setPalettes((prev) => [
       ...prev,
-      { name: "New palette", shades: createPalette("#cccccc") },
+      { id: uuid(), name: "New palette", shades: createPalette("#cccccc") },
     ]);
   };
 
@@ -71,8 +76,8 @@ export const PaletteProvider: React.FC = ({ children }) => {
     setPalettes((prev) => {
       const newPalette = [...prev];
       newPalette[index] = {
+        ...newPalette[index],
         name,
-        shades: { ...newPalette[index].shades },
       };
       return newPalette;
     });
