@@ -7,6 +7,14 @@ import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 export default function Home() {
   const {
     palettes,
@@ -17,6 +25,25 @@ export default function Home() {
     randomPalette,
     isLoadingRandom,
   } = useContext(PalettesContext);
+
+  function onDragEnd(result) {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const newPalettes = reorder(
+      palettes,
+      result.source.index,
+      result.destination.index
+    );
+
+    console.log(newPalettes);
+  }
+
   return (
     <Box
       background={`linear-gradient(${
@@ -58,7 +85,7 @@ export default function Home() {
             </Button>
           </Box>
         </Flex>
-        <DragDropContext onDragEnd={(result) => console.log(result)}>
+        <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="palettes">
             {(provided) => (
               <Flex
@@ -78,6 +105,9 @@ export default function Home() {
                   <>
                     {palettes.map((palette, i) => (
                       <ColorPanel
+                        index={i}
+                        id={palette.id}
+                        key={palette.id}
                         colorPalette={palette.shades}
                         name={palette.name}
                         onColorChange={(color: string) =>

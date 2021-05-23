@@ -42,6 +42,7 @@ export const PaletteProvider: React.FC = ({ children }) => {
     const res = await axios.get("/api/randomPalette");
     const newPalettes = res.data.colors.map((color, i) => {
       return {
+        id: uuid(),
         name: i === 0 ? "Primary" : `Color ${i}`,
         shades: createPalette(`#${color}`),
       };
