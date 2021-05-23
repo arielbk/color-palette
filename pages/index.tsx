@@ -86,11 +86,11 @@ export default function Home() {
           </Box>
         </Flex>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="palettes">
+          <Droppable droppableId="palettes" direction="horizontal">
             {(provided) => (
-              <Flex
-                width="100%"
-                textAlign="right"
+              <Box
+                // width="100%"
+                // textAlign="right"
                 background={"#fff"}
                 px={16}
                 py={0}
@@ -123,7 +123,7 @@ export default function Home() {
                   </>
                 )}
                 {provided.placeholder}
-              </Flex>
+              </Box>
             )}
           </Droppable>
         </DragDropContext>

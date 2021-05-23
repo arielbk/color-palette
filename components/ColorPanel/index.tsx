@@ -48,6 +48,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
     <Draggable draggableId={id} index={index}>
       {(provided) => (
         <Box
+          display="inline-block"
           ref={provided.innerRef}
           width="100px"
           my={8}
