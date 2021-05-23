@@ -7,14 +7,6 @@ import { ColorPanel } from "../components/ColorPanel";
 import { PalettesContext } from "../paletteContext";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 export default function Home() {
   const {
     palettes,
@@ -24,25 +16,8 @@ export default function Home() {
     exportToJson,
     randomPalette,
     isLoadingRandom,
+    onDragEnd,
   } = useContext(PalettesContext);
-
-  function onDragEnd(result) {
-    if (!result.destination) {
-      return;
-    }
-
-    if (result.destination.index === result.source.index) {
-      return;
-    }
-
-    const newPalettes = reorder(
-      palettes,
-      result.source.index,
-      result.destination.index
-    );
-
-    console.log(newPalettes);
-  }
 
   return (
     <Box
@@ -89,8 +64,6 @@ export default function Home() {
           <Droppable droppableId="palettes" direction="horizontal">
             {(provided) => (
               <Box
-                // width="100%"
-                // textAlign="right"
                 background={"#fff"}
                 px={16}
                 py={0}
