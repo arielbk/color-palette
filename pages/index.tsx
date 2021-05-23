@@ -1,24 +1,12 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useContext } from "react";
-import { AddPanel } from "../components/AddPanel";
-import { ColorPanel } from "../components/ColorPanel";
+import PanelList from "../components/PanelList";
 import { PalettesContext } from "../paletteContext";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export default function Home() {
-  const {
-    palettes,
-    handleChangePalette,
-    handleRenamePalette,
-    handleRemovePalette,
-    exportToJson,
-    randomPalette,
-    isLoadingRandom,
-    onDragEnd,
-  } = useContext(PalettesContext);
-
+  const { palettes, exportToJson, randomPalette } = useContext(PalettesContext);
   return (
     <Box
       background={`linear-gradient(${
@@ -60,46 +48,7 @@ export default function Home() {
             </Button>
           </Box>
         </Flex>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="palettes" direction="horizontal">
-            {(provided) => (
-              <Box
-                background={"#fff"}
-                px={16}
-                py={0}
-                my={4}
-                borderRadius={8}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {isLoadingRandom ? (
-                  <Spinner mx="auto" my={64} />
-                ) : (
-                  <>
-                    {palettes.map((palette, i) => (
-                      <ColorPanel
-                        index={i}
-                        id={palette.id}
-                        key={palette.id}
-                        colorPalette={palette.shades}
-                        name={palette.name}
-                        onColorChange={(color: string) =>
-                          handleChangePalette(color, i)
-                        }
-                        onRename={(name: string) =>
-                          handleRenamePalette(name, i)
-                        }
-                        onDelete={() => handleRemovePalette(i)}
-                      />
-                    ))}
-                    <AddPanel />
-                  </>
-                )}
-                {provided.placeholder}
-              </Box>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <PanelList />
       </Box>
     </Box>
   );
