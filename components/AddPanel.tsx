@@ -10,12 +10,10 @@ export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
         width="120px"
         borderWidth={2}
         borderStyle="dashed"
-        borderColor={"blackAlpha.200"}
         height="100%"
         justifyContent="center"
         alignItems="center"
         borderRadius={8}
-        color={"blackAlpha.500"}
         fontWeight="200"
         fontSize="2rem"
         cursor="pointer"

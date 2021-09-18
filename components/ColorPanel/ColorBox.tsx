@@ -29,12 +29,7 @@ export const ColorBox: React.FC<{ color: string; number: string }> = ({
       position="relative"
     >
       {!isHovered && number === "500" ? (
-        <Box
-          position="absolute"
-          left={2}
-          fontSize="1.2rem"
-          color="blackAlpha.600"
-        >
+        <Box position="absolute" left={2} fontSize="1.2rem">
           <AiFillStar />
         </Box>
       ) : null}
