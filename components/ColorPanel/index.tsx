@@ -1,3 +1,6 @@
+import { IconButton } from "@chakra-ui/button";
+import { Box } from "@chakra-ui/layout";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import {
   Popover,
   PopoverArrow,
@@ -8,9 +11,9 @@ import { Portal } from "@chakra-ui/portal";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { SketchPicker } from "react-color";
+import { CompactPicker } from "react-color";
 
-const Blob = styled(motion.a)<{ background: string; height: number }>`
+const Blob = styled(motion.button)<{ background: string; height: number }>`
   display: inline-block;
   background: ${(props) => props.background};
   width: 100px;
@@ -65,7 +68,8 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
             if ((e.target as HTMLAnchorElement).offsetHeight !== height)
               onDelete();
           }}
-          onDoubleClick={() => {
+          onContextMenu={(e) => {
+            e.preventDefault();
             setIsColorPickerOpen(true);
           }}
           height={height}
@@ -75,10 +79,22 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
       <Portal>
         <PopoverContent width="100%">
           <PopoverArrow />
-          <SketchPicker
-            color={colorPalette[500]}
-            onChange={({ hex: color }) => onColorChange(color)}
-          />
+          <Menu isOpen>
+            <Box py={2}>
+              <CompactPicker
+                color={colorPalette[500]}
+                onChange={({ hex: color }) => onColorChange(color)}
+              />
+            </Box>
+            <Box pb={4}>
+              <MenuItem command="⌘T">Duplicate</MenuItem>
+              <MenuItem command="⌘N">Analogous</MenuItem>
+              <MenuItem command="⌘⇧N">Opposite</MenuItem>
+              <MenuItem command="⌘O" onClick={onDelete}>
+                Delete
+              </MenuItem>
+            </Box>
+          </Menu>
         </PopoverContent>
       </Portal>
     </Popover>
