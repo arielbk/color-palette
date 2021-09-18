@@ -1,16 +1,15 @@
-import {
-  Box,
-  Center,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  IconButton,
-} from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import React from "react";
-import { AiFillStar, AiOutlineDelete } from "react-icons/ai";
-import ColorPicker from "../ColorPicker";
-import { ColorBox } from "./ColorBox";
-import { GrDrag } from "react-icons/gr";
+
+const Blob = styled(motion.a)<{ background: string; height: number }>`
+  display: inline-block;
+  background: ${(props) => props.background};
+  width: 100px;
+  height: ${(props) => props.height}px;
+  border-radius: 50%;
+  margin: 32px;
+`;
 
 export type Palette = {
   50: string;
@@ -36,18 +35,18 @@ interface ColorPanelProps {
 }
 
 export const ColorPanel: React.FC<ColorPanelProps> = ({
-  index,
-  id,
   colorPalette,
-  name,
-  onColorChange,
-  onRename,
   onDelete,
 }) => {
+  const height = 110;
   return (
-    <ColorPicker
-      color={colorPalette[500]}
-      onChange={(hex: string) => onColorChange(hex)}
+    <Blob
+      drag
+      onDragEnd={(e) => {
+        if ((e.target as HTMLAnchorElement).offsetHeight !== height) onDelete();
+      }}
+      height={height}
+      background={colorPalette[500]}
     />
   );
 };
