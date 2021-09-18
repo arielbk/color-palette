@@ -7,7 +7,6 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import React from "react";
-import { Draggable } from "react-beautiful-dnd";
 import { AiFillStar, AiOutlineDelete } from "react-icons/ai";
 import ColorPicker from "../ColorPicker";
 import { ColorBox } from "./ColorBox";
@@ -46,78 +45,61 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onDelete,
 }) => {
   return (
-    <Draggable draggableId={id} index={index}>
-      {(provided) => (
-        <Box
-          display="inline-block"
-          ref={provided.innerRef}
-          width="100px"
-          my={8}
-          mr={8}
-          textAlign="center"
-          {...provided.draggableProps}
-        >
-          <Editable
-            defaultValue={name}
-            textAlign="center"
-            startWithEditView
-            fontWeight="600"
-            mb={2}
-          >
-            <EditablePreview />
-            <EditableInput
-              value={name}
-              onChange={(e) => onRename(e.target.value)}
-            />
-          </Editable>
-          <Center my={4} mb={6}>
-            <Box fontSize="1.2rem" mr={6}>
-              <AiFillStar />
-            </Box>
-            <ColorPicker
-              color={colorPalette[500]}
-              onChange={(hex: string) => onColorChange(hex)}
-            />
-          </Center>
-
-          <Box
-            borderRadius={8}
-            overflow="hidden"
-            transform="translate(-4px, -3px)"
-          >
-            {Object.entries(colorPalette).map(([number, color]) => (
-              <ColorBox number={number} color={color} />
-            ))}
-          </Box>
-
-          <IconButton
-            colorScheme="red"
-            icon={<AiOutlineDelete />}
-            mt={4}
-            variant="outline"
-            onClick={onDelete}
-            aria-label="Remove colour"
-            borderRadius="50%"
-            size="lg"
-            boxShadow="0 16px 32px rgba(0,0,0,0.1)"
-            _hover={{
-              background: "red.600",
-              color: "#fff",
-            }}
-          />
-
-          <Box
-            transform="rotate(90deg)"
-            fontSize="1.5rem"
-            mt={16}
-            color="blue"
-            opacity="0.2"
-            {...provided.dragHandleProps}
-          >
-            <GrDrag />
-          </Box>
+    <Box display="inline-block" width="100px" my={8} mr={8} textAlign="center">
+      <Editable
+        defaultValue={name}
+        textAlign="center"
+        startWithEditView
+        fontWeight="600"
+        mb={2}
+      >
+        <EditablePreview />
+        <EditableInput
+          value={name}
+          onChange={(e) => onRename(e.target.value)}
+        />
+      </Editable>
+      <Center my={4} mb={6}>
+        <Box fontSize="1.2rem" mr={6}>
+          <AiFillStar />
         </Box>
-      )}
-    </Draggable>
+        <ColorPicker
+          color={colorPalette[500]}
+          onChange={(hex: string) => onColorChange(hex)}
+        />
+      </Center>
+
+      <Box borderRadius={8} overflow="hidden" transform="translate(-4px, -3px)">
+        {Object.entries(colorPalette).map(([number, color]) => (
+          <ColorBox number={number} color={color} />
+        ))}
+      </Box>
+
+      <IconButton
+        colorScheme="red"
+        icon={<AiOutlineDelete />}
+        mt={4}
+        variant="outline"
+        onClick={onDelete}
+        aria-label="Remove colour"
+        borderRadius="50%"
+        size="lg"
+        boxShadow="0 16px 32px rgba(0,0,0,0.1)"
+        _hover={{
+          background: "red.600",
+          color: "#fff",
+        }}
+      />
+
+      <Box
+        transform="rotate(90deg)"
+        fontSize="1.5rem"
+        mt={16}
+        color="blue"
+        opacity="0.2"
+      >
+        <GrDrag />
+      </Box>
+    </Box>
   );
 };

@@ -3,7 +3,6 @@ import download from "downloadjs";
 import axios from "axios";
 import { createPalette } from "./utilities";
 import { uuid } from "uuidv4";
-import { DropResult, ResponderProvided } from "react-beautiful-dnd";
 
 const defaultPalette = {
   id: uuid(),
@@ -11,18 +10,6 @@ const defaultPalette = {
   shades: createPalette("#0000ff"),
 };
 type PaletteList = typeof defaultPalette[];
-
-const reorder = (
-  list: PaletteList,
-  startIndex: number,
-  endIndex: number
-): PaletteList => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
 
 export const PalettesContext = createContext({
   palettes: [defaultPalette],
@@ -45,9 +32,6 @@ export const PalettesContext = createContext({
     // void
   },
   isLoadingRandom: false,
-  onDragEnd: (result: DropResult, provided: ResponderProvided) => {
-    // void
-  },
 });
 
 export const PaletteProvider: React.FC = ({ children }) => {
@@ -107,24 +91,6 @@ export const PaletteProvider: React.FC = ({ children }) => {
     download(JSON.stringify(json, null, 2), "palette.json", "application/json");
   };
 
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-
-    if (result.destination.index === result.source.index) {
-      return;
-    }
-
-    const newPalettes = reorder(
-      palettes,
-      result.source.index,
-      result.destination.index
-    );
-
-    setPalettes(newPalettes);
-  };
-
   useEffect(() => {
     randomPalette();
   }, []);
@@ -140,7 +106,6 @@ export const PaletteProvider: React.FC = ({ children }) => {
         exportToJson,
         randomPalette,
         isLoadingRandom,
-        onDragEnd,
       }}
     >
       {children}
