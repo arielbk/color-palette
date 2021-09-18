@@ -5,6 +5,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import React from "react";
 import { SketchPicker } from "react-color";
 
@@ -13,18 +15,17 @@ interface ColorPickerProps {
   onChange: (hex: string) => void;
 }
 
+const Blob = styled(motion.a)<{ background: string }>`
+  display: inline-block;
+  background: ${(props) => props.background};
+  width: 100px;
+  height: 110px;
+  border-radius: 50%;
+  margin: 32px;
+`;
+
 const ColorPicker: React.FC<ColorPickerProps> = ({ color, onChange }) => {
-  return (
-    <Popover>
-      <PopoverTrigger>
-        <Button background={color} borderRadius="50%" />
-      </PopoverTrigger>
-      <PopoverContent width="auto">
-        <PopoverArrow />
-        <SketchPicker color={color} onChange={(color) => onChange(color.hex)} />
-      </PopoverContent>
-    </Popover>
-  );
+  return <Blob drag background={color} />;
 };
 
 export default ColorPicker;

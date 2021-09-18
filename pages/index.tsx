@@ -24,19 +24,12 @@ export default function Home() {
               my={2}
               ml="auto"
               onClick={randomPalette}
-              colorScheme="blackAlpha"
               variant="solid"
               mr={4}
             >
               Random Palette
             </Button>
-            <Button
-              my={2}
-              ml="auto"
-              onClick={exportToJson}
-              colorScheme="blackAlpha"
-              variant="outline"
-            >
+            <Button my={2} ml="auto" onClick={exportToJson} variant="outline">
               Export JSON
             </Button>
           </Box>
