@@ -6,34 +6,26 @@ import { PalettesContext } from "../paletteContext";
 
 export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
   const { handleAddPalette, palettes } = useContext(PalettesContext);
-  const [color, setColor] = useState("#cccccc");
   return (
-    <Popover onClose={() => handleAddPalette(color)}>
-      <PopoverTrigger>
-        <Flex
-          width="120px"
-          borderWidth={2}
-          borderStyle="dashed"
-          height="100%"
-          justifyContent="center"
-          alignItems="center"
-          borderRadius={8}
-          fontWeight="200"
-          fontSize="2rem"
-          cursor="pointer"
-          _hover={{
-            background: Object.values(palettes)[0].shades[50],
-          }}
-        >
-          Add
-        </Flex>
-      </PopoverTrigger>
-      <PopoverContent>
-        <SketchPicker
-          color={color}
-          onChange={({ hex: color }) => setColor(color)}
-        />
-      </PopoverContent>
-    </Popover>
+    <Flex
+      borderWidth={2}
+      borderStyle="dashed"
+      height="110px"
+      width="110px"
+      my={8}
+      ml="auto"
+      justifyContent="center"
+      alignItems="center"
+      borderRadius="50%"
+      fontWeight="200"
+      fontSize="2rem"
+      cursor="pointer"
+      _hover={{
+        background: Object.values(palettes)[0].shades[50],
+      }}
+      onClick={() => handleAddPalette("#cccccc")}
+    >
+      Add
+    </Flex>
   );
 };

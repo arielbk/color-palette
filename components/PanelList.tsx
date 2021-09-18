@@ -38,14 +38,14 @@ const PanelList: React.FC = () => {
       <Box
         px={16}
         py={0}
-        my={16}
+        my={8}
         background="#3D3B3B"
         borderRadius="30px"
         minHeight="50vh"
         overflow="hidden"
       >
         {isLoadingRandom ? (
-          <Spinner mx="auto" my={64} />
+          <Spinner display="block" mx="auto" my={16} size="lg" />
         ) : (
           <div
             style={{
