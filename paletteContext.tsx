@@ -16,7 +16,7 @@ export const PalettesContext = createContext({
   handleChangePalette: (color: string, index: number) => {
     // void
   },
-  handleAddPalette: () => {
+  handleAddPalette: (color: string) => {
     // void
   },
   handleRemovePalette: (index: number) => {
@@ -63,10 +63,10 @@ export const PaletteProvider: React.FC = ({ children }) => {
     });
   };
 
-  const handleAddPalette = () => {
+  const handleAddPalette = (color: string) => {
     setPalettes((prev) => [
       ...prev,
-      { id: uuid(), name: "New palette", shades: createPalette("#cccccc") },
+      { id: uuid(), name: "New palette", shades: createPalette(color) },
     ]);
   };
 

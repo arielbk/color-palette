@@ -41,7 +41,8 @@ const PanelList: React.FC = () => {
         my={16}
         background="#3D3B3B"
         borderRadius="30px"
-        height="50vh"
+        minHeight="50vh"
+        overflow="hidden"
       >
         {isLoadingRandom ? (
           <Spinner mx="auto" my={64} />
