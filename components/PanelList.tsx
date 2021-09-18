@@ -19,11 +19,9 @@ const PanelList: React.FC = () => {
       <Droppable droppableId="palettes" direction="horizontal">
         {(provided) => (
           <Box
-            background="#fff"
             px={16}
             py={0}
             my={4}
-            borderRadius={8}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >

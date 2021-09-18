@@ -6,14 +6,9 @@ import PanelList from "../components/PanelList";
 import { PalettesContext } from "../paletteContext";
 
 export default function Home() {
-  const { palettes, exportToJson, randomPalette } = useContext(PalettesContext);
+  const { exportToJson, randomPalette } = useContext(PalettesContext);
   return (
-    <Box
-      background={`linear-gradient(${
-        Object.values(palettes)[0].shades[100]
-      }, #fff)`}
-      my={0}
-    >
+    <Box my={0}>
       <Head>
         <title>Color Palette</title>
         <link
@@ -23,9 +18,7 @@ export default function Home() {
       </Head>
       <Box maxWidth="1000px" mx="auto" py={8}>
         <Flex justifyContent="space-between">
-          <Heading color={Object.values(palettes)[0].shades[800]}>
-            Color Palette
-          </Heading>
+          <Heading>Color Palette</Heading>
           <Box>
             <Button
               my={2}
