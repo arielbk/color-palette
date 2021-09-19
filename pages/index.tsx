@@ -1,5 +1,5 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorMode } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useContext } from "react";
 import PanelList from "../components/PanelList";
@@ -7,6 +7,7 @@ import { PalettesContext } from "../paletteContext";
 
 export default function Home() {
   const { exportToJson, randomPalette } = useContext(PalettesContext);
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box my={0}>
       <Head>

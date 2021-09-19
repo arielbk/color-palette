@@ -43,12 +43,14 @@ interface ColorPanelProps {
   onColorChange: (color: string) => void;
   onRename: (name: string) => void;
   onDelete: () => void;
+  onDuplicate: () => void;
 }
 
 export const ColorPanel: React.FC<ColorPanelProps> = ({
   colorPalette,
   onDelete,
   onColorChange,
+  onDuplicate,
 }) => {
   const height = 110;
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
@@ -87,7 +89,15 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
               />
             </Box>
             <Box pb={4}>
-              <MenuItem command="⌘T">Duplicate</MenuItem>
+              <MenuItem
+                command="⌘T"
+                onClick={() => {
+                  onDuplicate();
+                  setIsColorPickerOpen(false);
+                }}
+              >
+                Duplicate
+              </MenuItem>
               <MenuItem command="⌘N">Analogous</MenuItem>
               <MenuItem command="⌘⇧N">Opposite</MenuItem>
               <MenuItem command="⌘O" onClick={onDelete}>

@@ -10,6 +10,7 @@ const PanelList: React.FC = () => {
     handleChangePalette,
     handleRenamePalette,
     handleRemovePalette,
+    handleAddPalette,
     isLoadingRandom,
   } = useContext(PalettesContext);
   return (
@@ -62,6 +63,7 @@ const PanelList: React.FC = () => {
                 onColorChange={(color: string) => handleChangePalette(color, i)}
                 onRename={(name: string) => handleRenamePalette(name, i)}
                 onDelete={() => handleRemovePalette(i)}
+                onDuplicate={() => handleAddPalette(palette.shades[500])}
               />
             ))}
           </div>
