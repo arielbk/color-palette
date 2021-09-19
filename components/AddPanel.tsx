@@ -1,7 +1,5 @@
-import { Box, Flex } from "@chakra-ui/layout";
-import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/popover";
-import { useContext, useState } from "react";
-import { SketchPicker } from "react-color";
+import { Flex } from "@chakra-ui/layout";
+import { useContext } from "react";
 import { PalettesContext } from "../paletteContext";
 
 export const AddPanel: React.FC<{ index: number }> = ({ index }) => {

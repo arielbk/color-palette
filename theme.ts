@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/fira-code";
+import { mode } from "@chakra-ui/theme-tools";
 
 const customTheme = extendTheme({
   config: {
@@ -7,12 +8,12 @@ const customTheme = extendTheme({
     initialColorMode: "dark",
   },
   styles: {
-    global: {
+    global: (props) => ({
       body: {
-        bg: "#4a4a4a",
-        color: "#cacaca",
+        bg: mode("#cccccc", "#4a4a4a")(props),
+        color: mode("#555", "#cacaca")(props),
       },
-    },
+    }),
   },
   fonts: {
     heading: "Fira Code, monospace",

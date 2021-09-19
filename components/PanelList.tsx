@@ -1,4 +1,4 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Spinner, useColorMode } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { PalettesContext } from "../paletteContext";
 import { AddPanel } from "./AddPanel";
@@ -13,6 +13,7 @@ const PanelList: React.FC = () => {
     handleAddPalette,
     isLoadingRandom,
   } = useContext(PalettesContext);
+  const { colorMode } = useColorMode();
   return (
     <>
       <svg style={{ height: 0 }}>
@@ -20,19 +21,17 @@ const PanelList: React.FC = () => {
           <filter id="blob-area">
             <feGaussianBlur
               in="SourceGraphic"
-              stdDeviation="16"
+              stdDeviation="12"
               result="blur"
+              edgeMode="wrap"
             />
             <feColorMatrix
               in="blur"
               type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -12"
               result="goo"
             />
             {/* <feComposite in="SourceGraphic" in2="goo" operator="atop" /> */}
-            <filter id="blob-no-blur">
-              <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-            </filter>
           </filter>
         </defs>
       </svg>
@@ -40,7 +39,7 @@ const PanelList: React.FC = () => {
         px={16}
         py={0}
         my={8}
-        background="#3D3B3B"
+        background={colorMode === "light" ? "#eee" : "#3D3B3B"}
         borderRadius="30px"
         minHeight="50vh"
         overflow="hidden"

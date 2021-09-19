@@ -21,6 +21,9 @@ export default function Home() {
         <Flex justifyContent="space-between">
           <Heading>Color Palette</Heading>
           <Box>
+            <Button onClick={toggleColorMode} mr={4}>
+              {colorMode === "light" ? "🌙" : "☀️"}
+            </Button>
             <Button
               my={2}
               ml="auto"

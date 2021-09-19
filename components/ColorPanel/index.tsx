@@ -16,7 +16,7 @@ import { CompactPicker } from "react-color";
 const Blob = styled(motion.button)<{ background: string; height: number }>`
   display: inline-block;
   background: ${(props) => props.background};
-  width: 100px;
+  width: ${(props) => props.height}px;
   height: ${(props) => props.height}px;
   border-radius: 50%;
   margin: 32px;
@@ -52,7 +52,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onColorChange,
   onDuplicate,
 }) => {
-  const height = 110;
+  const height = 140;
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   return (
     <Popover
