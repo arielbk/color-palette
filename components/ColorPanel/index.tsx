@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/popover";
 import { Portal } from "@chakra-ui/portal";
+import { Editable, EditablePreview, EditableInput } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
@@ -20,6 +21,7 @@ const Blob = styled(motion.button)<{ background: string; height: number }>`
   height: ${(props) => props.height}px;
   border-radius: 50%;
   margin: 32px;
+  cursor: move;
 `;
 
 export type Palette = {
@@ -51,6 +53,8 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onDelete,
   onColorChange,
   onDuplicate,
+  name,
+  onRename,
 }) => {
   const height = 140;
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
@@ -82,7 +86,20 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
         <PopoverContent width="100%">
           <PopoverArrow />
           <Menu isOpen>
-            <Box py={2}>
+            <Box pt={6} p={2} fontWeight="800" textAlign="center">
+              <Editable defaultValue={name} value={name} onChange={onRename}>
+                <EditablePreview />
+                <EditableInput />
+              </Editable>
+            </Box>
+            <Box
+              py={2}
+              sx={{
+                div: {
+                  boxShadow: "none",
+                },
+              }}
+            >
               <CompactPicker
                 color={colorPalette[500]}
                 onChange={({ hex: color }) => onColorChange(color)}
