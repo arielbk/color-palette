@@ -43,13 +43,14 @@ const PanelList: React.FC<{ gooiness: number }> = ({ gooiness }) => {
         my={8}
         background={colorMode === 'light' ? '#eee' : '#3D3B3B'}
         borderRadius="30px"
-        minHeight="50vh"
-        overflow="hidden"
+        minHeight="70vh"
+        overflowX="auto"
+        position="relative"
       >
         {isLoadingRandom ? (
           <Spinner display="block" mx="auto" my={16} size="lg" />
         ) : (
-          <div
+          <Box
             style={{
               filter: "url('#blob-area')",
             }}
@@ -65,9 +66,10 @@ const PanelList: React.FC<{ gooiness: number }> = ({ gooiness }) => {
                 onRename={(name: string) => handleRenamePalette(name, i)}
                 onDelete={() => handleRemovePalette(i)}
                 onDuplicate={() => handleAddPalette(palette.shades[500])}
+                left={i * 128}
               />
             ))}
-          </div>
+          </Box>
         )}
         <AddPanel index={palettes.length - 1} />
       </Box>

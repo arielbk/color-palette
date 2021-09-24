@@ -1,6 +1,6 @@
-import { Flex } from "@chakra-ui/layout";
-import { useContext } from "react";
-import { PalettesContext } from "../paletteContext";
+import { Flex } from '@chakra-ui/layout';
+import { useContext } from 'react';
+import { PalettesContext } from '../paletteContext';
 
 export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
   const { handleAddPalette, palettes } = useContext(PalettesContext);
@@ -10,7 +10,7 @@ export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
       borderStyle="dashed"
       height="110px"
       width="110px"
-      my={8}
+      mt={64}
       ml="auto"
       justifyContent="center"
       alignItems="center"
@@ -18,10 +18,11 @@ export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
       fontWeight="200"
       fontSize="2rem"
       cursor="pointer"
-      _hover={{
-        background: Object.values(palettes)[0].shades[50],
-      }}
-      onClick={() => handleAddPalette("#cccccc")}
+      position="fixed"
+      onClick={() => handleAddPalette('#cccccc')}
+      left="70%"
+      bottom="25%"
+      userSelect="none"
     >
       Add
     </Flex>

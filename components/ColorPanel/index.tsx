@@ -1,27 +1,34 @@
-import { IconButton } from "@chakra-ui/button";
-import { Box } from "@chakra-ui/layout";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import { IconButton } from '@chakra-ui/button';
+import { Box } from '@chakra-ui/layout';
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu';
 import {
   Popover,
   PopoverArrow,
   PopoverContent,
   PopoverTrigger,
-} from "@chakra-ui/popover";
-import { Portal } from "@chakra-ui/portal";
-import { Editable, EditablePreview, EditableInput } from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
-import React, { useState } from "react";
-import { CompactPicker } from "react-color";
+} from '@chakra-ui/popover';
+import { Portal } from '@chakra-ui/portal';
+import { Editable, EditablePreview, EditableInput } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { CompactPicker } from 'react-color';
 
-const Blob = styled(motion.button)<{ background: string; height: number }>`
+const Blob = styled(motion.button)<{
+  background: string;
+  height: number;
+  left: number;
+}>`
   display: inline-block;
   background: ${(props) => props.background};
   width: ${(props) => props.height}px;
   height: ${(props) => props.height}px;
   border-radius: 50%;
-  margin: 32px;
+  margin-top: 64px;
+  margin-right: 64px;
   cursor: move;
+  position: absolute;
+  left: ${(props) => props.left}px;
 `;
 
 export type Palette = {
@@ -46,6 +53,7 @@ interface ColorPanelProps {
   onRename: (name: string) => void;
   onDelete: () => void;
   onDuplicate: () => void;
+  left: number;
 }
 
 export const ColorPanel: React.FC<ColorPanelProps> = ({
@@ -55,6 +63,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onDuplicate,
   name,
   onRename,
+  left,
 }) => {
   const height = 140;
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
@@ -80,6 +89,10 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
           }}
           height={height}
           background={colorPalette[500]}
+          onDragStart={(e) => {
+            if (e.altKey === true) onDuplicate();
+          }}
+          left={left}
         />
       </PopoverTrigger>
       <Portal>
@@ -96,7 +109,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
               py={2}
               sx={{
                 div: {
-                  boxShadow: "none",
+                  boxShadow: 'none',
                 },
               }}
             >

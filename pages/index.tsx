@@ -15,7 +15,7 @@ import { PalettesContext } from '../paletteContext';
 export default function Home() {
   const { exportToJson, randomPalette, palettes } = useContext(PalettesContext);
   const { colorMode, toggleColorMode } = useColorMode();
-  const [gooiness, setGooiness] = useState(1);
+  const [gooiness, setGooiness] = useState(1.2);
   return (
     <Box my={0}>
       <Head>
@@ -53,12 +53,13 @@ export default function Home() {
           value={gooiness}
           onChange={(newVal) => setGooiness(newVal)}
           min={0}
-          max={3}
+          max={3.5}
           step={0.01}
           size="lg"
+          colorScheme="primary"
         >
           <SliderTrack>
-            <SliderFilledTrack bg={palettes[0].shades[500]} />
+            <SliderFilledTrack />
           </SliderTrack>
           <SliderThumb />
         </Slider>
