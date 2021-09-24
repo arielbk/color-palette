@@ -20,6 +20,13 @@ const customTheme = {
     body: 'system-ui, sans-serif',
     mono: 'Fira Code, monospace',
   },
+  components: {
+    Button: {
+      _focused: {
+        outline: 'red',
+      },
+    },
+  },
 };
 
 export default customTheme;

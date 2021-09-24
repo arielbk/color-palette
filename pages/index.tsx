@@ -5,10 +5,12 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
+  Tooltip,
   useColorMode,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import React, { useContext, useState } from 'react';
+import { FaFileExport, FaMoon, FaRandom, FaSun } from 'react-icons/fa';
 import PanelList from '../components/PanelList';
 import { PalettesContext } from '../paletteContext';
 
@@ -26,43 +28,61 @@ export default function Home() {
         />
       </Head>
       <Box maxWidth="1000px" py={8} mx="auto" px={4}>
-        <Flex justifyContent="space-between">
+        <Flex justifyContent="space-between" alignItems="center">
           <Heading>Color Palette</Heading>
           <Box>
-            <Button onClick={toggleColorMode} mr={4}>
-              {colorMode === 'light' ? '🌙' : '☀️'}
-            </Button>
-            <Button
-              my={2}
-              ml="auto"
-              onClick={randomPalette}
-              variant="solid"
-              mr={4}
-            >
-              Random Palette
-            </Button>
-            <Button my={2} ml="auto" onClick={exportToJson} variant="outline">
-              Export JSON
-            </Button>
+            <Tooltip label={colorMode === 'light' ? 'Dark mode' : 'Light mode'}>
+              <Button onClick={toggleColorMode} mr={4} size="lg">
+                {colorMode === 'light' ? <FaMoon /> : <FaSun />}
+              </Button>
+            </Tooltip>
+            <Tooltip label="Random palette">
+              <Button
+                my={2}
+                ml="auto"
+                onClick={randomPalette}
+                variant="solid"
+                mr={4}
+                size="lg"
+              >
+                <FaRandom />
+              </Button>
+            </Tooltip>
+            <Tooltip label="Export JSON">
+              <Button
+                my={2}
+                ml="auto"
+                onClick={exportToJson}
+                variant="solid"
+                size="lg"
+              >
+                <FaFileExport />
+              </Button>
+            </Tooltip>
           </Box>
         </Flex>
         <PanelList gooiness={gooiness} />
-        <Slider
-          aria-label="gooiness"
-          defaultValue={gooiness}
-          value={gooiness}
-          onChange={(newVal) => setGooiness(newVal)}
-          min={0}
-          max={3.5}
-          step={0.01}
-          size="lg"
-          colorScheme="primary"
-        >
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <SliderThumb />
-        </Slider>
+        <Flex alignItems="center" mx={8}>
+          <Heading size="md" mr={8}>
+            Gooiness
+          </Heading>
+          <Slider
+            aria-label="gooiness"
+            defaultValue={gooiness}
+            value={gooiness}
+            onChange={(newVal) => setGooiness(newVal)}
+            min={0}
+            max={3.5}
+            step={0.01}
+            size="lg"
+            colorScheme="primary"
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+        </Flex>
       </Box>
     </Box>
   );
