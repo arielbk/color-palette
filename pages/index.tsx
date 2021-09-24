@@ -1,13 +1,21 @@
-import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Button, useColorMode } from "@chakra-ui/react";
-import Head from "next/head";
-import React, { useContext } from "react";
-import PanelList from "../components/PanelList";
-import { PalettesContext } from "../paletteContext";
+import { Box, Flex, Heading } from '@chakra-ui/layout';
+import {
+  Button,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  useColorMode,
+} from '@chakra-ui/react';
+import Head from 'next/head';
+import React, { useContext, useState } from 'react';
+import PanelList from '../components/PanelList';
+import { PalettesContext } from '../paletteContext';
 
 export default function Home() {
-  const { exportToJson, randomPalette } = useContext(PalettesContext);
+  const { exportToJson, randomPalette, palettes } = useContext(PalettesContext);
   const { colorMode, toggleColorMode } = useColorMode();
+  const [gooiness, setGooiness] = useState(1);
   return (
     <Box my={0}>
       <Head>
@@ -22,7 +30,7 @@ export default function Home() {
           <Heading>Color Palette</Heading>
           <Box>
             <Button onClick={toggleColorMode} mr={4}>
-              {colorMode === "light" ? "🌙" : "☀️"}
+              {colorMode === 'light' ? '🌙' : '☀️'}
             </Button>
             <Button
               my={2}
@@ -38,7 +46,22 @@ export default function Home() {
             </Button>
           </Box>
         </Flex>
-        <PanelList />
+        <PanelList gooiness={gooiness} />
+        <Slider
+          aria-label="gooiness"
+          defaultValue={gooiness}
+          value={gooiness}
+          onChange={(newVal) => setGooiness(newVal)}
+          min={0}
+          max={3}
+          step={0.01}
+          size="lg"
+        >
+          <SliderTrack>
+            <SliderFilledTrack bg={palettes[0].shades[500]} />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
       </Box>
     </Box>
   );

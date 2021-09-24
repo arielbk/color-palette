@@ -1,10 +1,10 @@
-import { Box, Spinner, useColorMode } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { PalettesContext } from "../paletteContext";
-import { AddPanel } from "./AddPanel";
-import { ColorPanel } from "./ColorPanel";
+import { Box, Spinner, useColorMode } from '@chakra-ui/react';
+import React, { useContext } from 'react';
+import { PalettesContext } from '../paletteContext';
+import { AddPanel } from './AddPanel';
+import { ColorPanel } from './ColorPanel';
 
-const PanelList: React.FC = () => {
+const PanelList: React.FC<{ gooiness: number }> = ({ gooiness }) => {
   const {
     palettes,
     handleChangePalette,
@@ -21,14 +21,16 @@ const PanelList: React.FC = () => {
           <filter id="blob-area">
             <feGaussianBlur
               in="SourceGraphic"
-              stdDeviation="12"
+              stdDeviation={12 * gooiness}
               result="blur"
               edgeMode="wrap"
             />
             <feColorMatrix
               in="blur"
               type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 16 -12"
+              values={`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${
+                16 * gooiness
+              } ${-12 * gooiness}`}
               result="goo"
             />
             {/* <feComposite in="SourceGraphic" in2="goo" operator="atop" /> */}
@@ -39,7 +41,7 @@ const PanelList: React.FC = () => {
         px={16}
         py={0}
         my={8}
-        background={colorMode === "light" ? "#eee" : "#3D3B3B"}
+        background={colorMode === 'light' ? '#eee' : '#3D3B3B'}
         borderRadius="30px"
         minHeight="50vh"
         overflow="hidden"
