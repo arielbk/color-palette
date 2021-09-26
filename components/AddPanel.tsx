@@ -10,8 +10,8 @@ export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
     <Flex
       borderWidth={2}
       borderStyle="dashed"
-      height="110px"
-      width="110px"
+      height="140px"
+      width="140px"
       mt={64}
       ml="auto"
       justifyContent="center"
@@ -23,7 +23,7 @@ export const AddPanel: React.FC<{ index: number }> = ({ index }) => {
       position="fixed"
       onClick={() => handleAddPalette('#cccccc')}
       left="70%"
-      bottom="25%"
+      bottom="20%"
       userSelect="none"
       borderColor={colorMode === 'light' ? '#ccc' : '#4A4A4A'}
     >

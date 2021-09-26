@@ -27,7 +27,7 @@ export default function Home() {
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"
         />
       </Head>
-      <Box maxWidth="1000px" py={8} mx="auto" px={4}>
+      <Box maxWidth="1000px" py={8} mx="auto" px={4} height="100vh">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading>Color Palette</Heading>
           <Box>
@@ -62,27 +62,35 @@ export default function Home() {
           </Box>
         </Flex>
         <PanelList gooiness={gooiness} />
-        <Flex alignItems="center" mx={8}>
-          <Heading size="md" mr={8}>
-            Gooiness
-          </Heading>
-          <Slider
-            aria-label="gooiness"
-            defaultValue={gooiness}
-            value={gooiness}
-            onChange={(newVal) => setGooiness(newVal)}
-            min={0}
-            max={3.5}
-            step={0.01}
-            size="lg"
-            colorScheme="primary"
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-        </Flex>
+        <Box
+          position="absolute"
+          bottom={8}
+          width="100%"
+          px={8}
+          maxWidth="1000px"
+        >
+          <Flex alignItems="center" mx={8}>
+            <Heading size="md" mr={8}>
+              Gooiness
+            </Heading>
+            <Slider
+              aria-label="gooiness"
+              defaultValue={gooiness}
+              value={gooiness}
+              onChange={(newVal) => setGooiness(newVal)}
+              min={0.29}
+              max={3.3}
+              step={0.01}
+              size="lg"
+              colorScheme="primary"
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+          </Flex>
+        </Box>
       </Box>
     </Box>
   );

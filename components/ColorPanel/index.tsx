@@ -65,6 +65,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   onRename,
   left,
 }) => {
+  const [leftState] = useState(left);
   const height = 140;
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   return (
@@ -87,12 +88,16 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
             e.preventDefault();
             setIsColorPickerOpen(true);
           }}
+          whileHover={{
+            scale: 1.08,
+          }}
           height={height}
           background={colorPalette[500]}
-          onDragStart={(e) => {
+          onDragStart={(e, info) => {
+            console.log(info.point);
             if (e.altKey === true) onDuplicate();
           }}
-          left={left}
+          left={leftState}
         />
       </PopoverTrigger>
       <Portal>
